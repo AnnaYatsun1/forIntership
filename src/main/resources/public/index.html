@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body ng-app = "SprinDemooo">
+<div class="container" style="margin-top:30px" ng-controller="AppController">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <center>   <div class="panel-heading">Сайт Моя попытка</div> </center>
+                <br>
+
+                <div class="panel-body">
+                    <table class="table table-stiped">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>lastName</th>
+                            <th>phone</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="users in table">
+                            <th>{{users.id}}</th>
+                            <th>{{users.name}}</th>
+                            <th>{{users.lastName}}</th>
+                            <th>{{users.phone}}</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<script type="text/javascript" src="Js/main.js"></script>
+
+</body>
+</html>

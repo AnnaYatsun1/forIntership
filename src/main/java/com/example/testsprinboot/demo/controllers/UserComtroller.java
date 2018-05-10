@@ -1,12 +1,13 @@
 package com.example.testsprinboot.demo.controllers;
 
 import com.example.testsprinboot.demo.model.User;
-import com.example.testsprinboot.demo.repository.UserRepository;
+import com.example.testsprinboot.demo.service.UseServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -14,27 +15,28 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class UserComtroller {
     @Autowired
-    private UserRepository userRepository;
+    private UseServise useServise;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/contacts")
-    public Iterable<User> user() {
-        return userRepository.findAll();
+    @RequestMapping(method=RequestMethod.GET, value="/users")
+    public List<User>  getList(){
+        return useServise.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/contacts")
-    public ResponseEntity<User> save(@RequestBody User user) {
-        userRepository.save(user);
-        return new ResponseEntity<User>(HttpStatus.OK);
+    @RequestMapping(method=RequestMethod.POST, value="/users")
+    public User save(@RequestBody User user) {
+       useServise.save(user);
+        return user;
+    }
+    @RequestMapping(method = RequestMethod.DELETE, value = "/contacts/{id}")
+    public String delete(@PathVariable String id) {
+      useServise.delete(id);
+        return "";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/contacts/{id}")
-    public Optional<User> show(@PathVariable String id) {
-        return userRepository.findById(id);
-    }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/contacts/{id}")
+    @RequestMapping(method = RequestMethod.PUT, value = "/users/{id}")
     public ResponseEntity<User> update(@PathVariable String id, @RequestBody User user) {
-        Optional<User> us = userRepository.findById(id);
+        Optional<User> us = useServise.findById(id);
         if (!us.isPresent()) {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
@@ -42,14 +44,9 @@ public class UserComtroller {
         us1.setName(user.getName());
         us1.setLastName(user.getLastName());
         us1.setPhone(user.getPhone());
-        userRepository.save(us1);
+        useServise.save(us1);
         return new ResponseEntity<User>(us1, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/contacts/{id}")
-    public String delete(@PathVariable String id) {
-        userRepository.deleteById(id);
-        return "";
-    }
 
 }

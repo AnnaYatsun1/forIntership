@@ -10,12 +10,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Optional;
 
 
-@Document(collection = "contacts")
+@Document
 public class  User {
 
     @Id
     String id;
     String name;
+    String lastName;
+    String phone;
+
+    public User(String name, String lastName, String phone) {
+        this.name = name;
+        this.lastName = lastName;
+        this.phone = phone;
+    }
+
+
 
     public User() {
     }
@@ -52,15 +62,6 @@ public class  User {
         this.phone = phone;
     }
 
-    String lastName;
 
-    public User(String name, String lastName, String phone) {
-        this.name = name;
-        this.lastName = lastName;
-        this.phone = phone;
-    }
-
-
-    String phone;
 
 }
